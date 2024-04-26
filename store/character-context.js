@@ -1,9 +1,10 @@
-import { createContext, useState } from "react";
-import { v4 as uuidv4 } from 'uuid';
+import { createContext, useState, useContext } from "react";
+import {AuthContext} from "./auth-context";
+import Character from "../model/Character";
 
 
 export const CharacterContext = createContext({
-    userId: "",
+    email: "",
     charId: "",
     playingCharacter: {},
     availableChar: [],
@@ -13,30 +14,31 @@ export const CharacterContext = createContext({
 })
 
 function CharacterProvider({ children }) {
-    const [charId, setCharId] = useState();
-    const [playingCharacter, setPlayingCharacter] = useState();
-    const [availableChar, setAvailableChar] = useState();
+    const authCtx = useContext(AuthContext);
+
+    const [charId, setCharId] = useState("");
+    const [playingCharacter, setPlayingCharacter] = useState(new Character());
+    const [availableChar, setAvailableChar] = useState([]);
 
     function selectChar(character) {
         setPlayingCharacter(character)
         setCharId(character.id);
-
     }
 
-    function initNewChar(character) {
-        const uuid = uuidv4();
-        setCharId(uuid);
-        character.id = uuid;
-        setPlayingCharacter(character);
-        setAvailableChar(oldChars => [...oldChars, playingCharacter])
+    function initNewChar() {
+        setCharId(playingCharacter.id)
+        setAvailableChar(prevArray => [...prevArray, playingCharacter])
     }
 
     function updateChar(character) {
+        const index = availableChar.findIndex((char) => char.name === character.name);
+        console.log(index)
+        availableChar[index] = character;
         setPlayingCharacter(character)
     }
 
     const values = {
-        userId: "",
+        email: authCtx.email,
         charId: charId,
         playingCharacter: playingCharacter,
         availableChar: availableChar,

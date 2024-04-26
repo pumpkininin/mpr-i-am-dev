@@ -8,6 +8,8 @@ import SignUp from "../screens/SignUp";
 import SignIn from "../screens/SignIn";
 import Home from "../screens/Home";
 import {AuthContext} from "../store/auth-context";
+import Lobby from "../screens/Lobby";
+import CreateCharacter from "../screens/CreateCharacter";
 
 
 const Stack = createNativeStackNavigator();
@@ -29,9 +31,18 @@ function AuthenticatedStack() {
                     headerStyle: { backgroundColor: 'dodgerblue', flex: 1 },
                     headerTintColor: 'white',
                 }}>
+
+                <Stack.Screen
+                    name="Lobby"
+                    component={Lobby}
+                    screenOptions={{}}/>
                 <Stack.Screen
                     name="Home"
                     component={Home}
+                    screenOptions={{}}/>
+                <Stack.Screen
+                    name="CreateCharacter"
+                    component={CreateCharacter}
                     screenOptions={{}}/>
             </Stack.Navigator>
     )

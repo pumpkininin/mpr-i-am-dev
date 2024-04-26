@@ -29,7 +29,7 @@ export default function SignUp({navigation}) {
             .then((userCredential) => {
                 // Signed up
                 const user = userCredential.user;
-                authCtx.authenticate(user.accessToken)
+                authCtx.authenticate(email,user.accessToken)
             })
             .catch((error) => {
                 const errorCode = error.code;

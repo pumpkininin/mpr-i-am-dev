@@ -1,6 +1,7 @@
 import { createContext, useState } from 'react';
 
 export const AuthContext = createContext({
+    email: '',
     token: '',
     isAuthenticated: false,
     authenticate: () => {},
@@ -8,9 +9,11 @@ export const AuthContext = createContext({
 })
 
 function AuthProvider({ children }) {
+    const [email, setEmail] = useState();
     const [authToken, setAuthToken] = useState();
 
-    function authenticate(token) {
+    function authenticate(email, token) {
+        setEmail(email)
         setAuthToken(token)
     }
 
@@ -19,6 +22,7 @@ function AuthProvider({ children }) {
     }
 
     const values = {
+        email: email,
         token: authToken,
         isAuthenticated: !!authToken,
         authenticate: authenticate,
