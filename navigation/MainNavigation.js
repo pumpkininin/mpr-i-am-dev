@@ -1,21 +1,23 @@
-import { StyleSheet } from "react-native";
+import {StyleSheet} from "react-native";
 import {useContext} from "react";
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 
 import SignUp from "../screens/SignUp";
 import SignIn from "../screens/SignIn";
-import Home from "../screens/Home";
 import {AuthContext} from "../store/auth-context";
 import Lobby from "../screens/Lobby";
 import CreateCharacter from "../screens/CreateCharacter";
+import MainScreen from "../screens/MainScreen";
 
 
 const Stack = createNativeStackNavigator();
 
 export default function MainNavigation() {
-     const authCtx = useContext(AuthContext);
+
+
+    const authCtx = useContext(AuthContext);
     return (
         <NavigationContainer style={styles.container}>
             {authCtx.isAuthenticated ? <AuthenticatedStack/> : <AuthStack/>}
@@ -35,16 +37,26 @@ function AuthenticatedStack() {
                 <Stack.Screen
                     name="Lobby"
                     component={Lobby}
-                    screenOptions={{}}/>
-                <Stack.Screen
-                    name="Home"
-                    component={Home}
-                    screenOptions={{}}/>
+                    screenOptions={{}}
+                    options={{
+                        headerShown: false
+                    }}/>
                 <Stack.Screen
                     name="CreateCharacter"
                     component={CreateCharacter}
-                    screenOptions={{}}/>
+                    screenOptions={{}}
+                    options={{
+                        headerShown: false
+                    }}/>
+                <Stack.Screen
+                    name="MainScreen"
+                    component={MainScreen}
+                    screenOptions={{}}
+                    options={{
+                        headerShown: false
+                    }}/>
             </Stack.Navigator>
+
     )
 }
 
@@ -59,11 +71,17 @@ function AuthStack() {
             <Stack.Screen
                 name="SignUp"
                 component={SignUp}
-                screenOptions={{}}/>
+                screenOptions={{}}
+                options={{
+                    headerShown: false
+                }}/>
             <Stack.Screen
                 name="SignIn"
                 component={SignIn}
-                ScreenOptions={{}}/>
+                ScreenOptions={{}}
+                options={{
+                    headerShown: false
+                }}/>
         </Stack.Navigator>
         )
 }

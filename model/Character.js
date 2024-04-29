@@ -1,10 +1,8 @@
 import 'react-native-get-random-values';
-import { v4 as uuidv4 } from 'uuid';
 
 class Character {
-    constructor(id, name, gender, age = 0, health = 100, skill = [], inventory = [], relationship = []) {
-        const uuid = uuidv4();
-        this._id = uuid;
+    constructor(id, name, gender, age = 0, health = 100, skill = [], inventory = [], relationship = [], lastAccessed = new Date()) {
+        this._id = id;
         this._name = name;
         this._gender = gender;
         this._age = age;
@@ -12,6 +10,7 @@ class Character {
         this._skill = skill;
         this._inventory = inventory;
         this._relationship = relationship;
+        this._lastAccessed = lastAccessed;
     }
 
     get id() {
@@ -77,6 +76,34 @@ class Character {
     set relationship(value) {
         this._relationship = value;
     }
+
+    get lastAccessed() {
+        return this._lastAccessed;
+    }
+
+    set lastAccessed(value) {
+        this._lastAccessed = value;
+    }
 }
 
+const characterConverter = {
+    toFirestore: (character) => {
+        return {
+            id: character.id,
+            name: character.name,
+            gender: character.gender,
+            age: character.age,
+            health: character.health,
+            skill: character.skill,
+            inventory: character.inventory,
+            relationship: character.relationship,
+            lastAccessed: character.lastAccessed,
+        };
+    },
+    fromFirestore: (snapshot, options) => {
+        const data = snapshot.data(options);
+        return new Character(data.id, data.name, data.gender, data.age, data.health, data.skill, data.inventory, data.relationship, data.lastAccessed);
+    }
+}
+export {characterConverter};
 export default Character;

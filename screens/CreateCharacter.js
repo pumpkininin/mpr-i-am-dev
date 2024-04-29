@@ -15,7 +15,7 @@ const gender = [
 ];
 
 
-export default function CreateCharacter() {
+export default function CreateCharacter({navigation}) {
 
     const [character, setCharacter] = useState(new Character());
     const [charName, setCharName] = useState("");
@@ -24,26 +24,25 @@ export default function CreateCharacter() {
     const [charNameError, setCharNameError] = useState("");
     const charCtx = useContext(CharacterContext);
     const availableChar = charCtx.availableChar;
-    const onCreateCharacter = () => {
+    const onCreateCharacter = async () => {
+        if (charName === "") {
+            setCharNameError("Character name must not be empty")
+            return;
+        }
         let isInvalidCharName = false;
-        for (let aChar in availableChar) {
+        for (let aChar of availableChar) {
             if (aChar.name === charName) {
                 isInvalidCharName = true;
                 break
             }
         }
-        console.log(availableChar)
         if (isInvalidCharName) {
             setCharNameError("Character name " + charName + " already exist");
         } else {
-            charCtx.initNewChar()
-            let playingChar = charCtx.playingCharacter
-            playingChar.name = charName;
-            playingChar.gender = genderValue;
-            charCtx.updateChar(playingChar)
-            console.log("xxxxxxxxxxx")
-            console.log(charCtx.availableChar)
+            await charCtx.initNewChar(charName, genderValue);
+            navigation.navigate("MainScreen");
         }
+
     }
 
     return (
