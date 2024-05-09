@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
     value: {
         fontSize: 16,
         marginBottom: 20,
+        fontFamily: "cyber-display",
     },
 });
 

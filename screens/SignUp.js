@@ -1,10 +1,12 @@
-import { SafeAreaView, Text, View, StyleSheet, StatusBar, TouchableOpacity } from "react-native";
+import {SafeAreaView, Text, View, StyleSheet, StatusBar, TouchableOpacity, ImageBackground} from "react-native";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import {useState, useContext} from "react";
 import CustomInput from "../components/UI/CustomInput";
 
 import {AuthContext} from "../store/auth-context";
+import {GlobalStyles} from "../constants/Color";
 
+const image = {uri: "https://xclcamps.com/wp-content/uploads/coding-difference-1.jpg"}
 
 export default function SignUp({navigation}) {
     const [email, setEmail] = useState("");
@@ -44,6 +46,8 @@ export default function SignUp({navigation}) {
 
     return (
         <View style={styles.container}>
+            <ImageBackground source={image} resizeMode="cover" style={styles.image}>
+
             <Text style={styles.title}>Sign Up</Text>
             <CustomInput
                 containerStyle={{ marginHorizontal: 20 }}
@@ -59,7 +63,7 @@ export default function SignUp({navigation}) {
                 secureTextEntry
             />
             <TouchableOpacity
-                style={styles.loginButton}
+                style={[styles.loginButton, {backgroundColor: GlobalStyles.colors.primary500}]}
                 onPress={handleSignUp}
             >
                 <Text style={styles.buttonText}>Signup</Text>
@@ -67,6 +71,8 @@ export default function SignUp({navigation}) {
             <View style={styles.optionContainer}>
                 <Text style={styles.optionText} onPress={() => navigation.navigate('SignIn')}>Sign In?</Text>
             </View>
+            </ImageBackground>
+
         </View>
     )
 }
@@ -75,32 +81,43 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingVertical: 20,
-        justifyContent: "center"
+        justifyContent: 'center',
+        fontFamily: "cyber-display",
+
     },
     title: {
         fontSize: 32,
         alignSelf: "center",
         margin: 40,
         fontWeight: "bold",
+        color: "#ffffff",
+        fontFamily: "cyber-display",
     },
     loginButton: {
         width: 100,
         paddingVertical: 10,
         borderRadius: 5,
-        backgroundColor: 'dodgerblue',
         alignItems: 'center',
         alignSelf: 'center',
         marginTop: 20,
     },
     buttonText: {
-        fontSize: 18,
+        fontSize: 22,
         color: 'white',
+        fontFamily: "cyber-display",
     },
     optionContainer: {
         margin: 20,
         alignItems: "center",
     },
     optionText: {
-        textDecorationLine: 'underline',
-    }
+        textDecorationStyle: 'dashed',
+        fontFamily: "cyber-display",
+        color: "#fff",
+        fontSize: 18
+    },
+    image: {
+        flex: 1,
+        justifyContent: 'center',
+    },
 })

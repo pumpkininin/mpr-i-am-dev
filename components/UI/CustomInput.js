@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { Animated, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const CustomInput = ({ containerStyle, placeholder, onChangeText, error, ...props }) => {
+const CustomInput = ({ containerStyle, placeholder, onChangeText, color, error, ...props }) => {
     const [isFocused, setIsFocused] = useState(false);
     const [text, setText] = useState('');
     const [showPassword, setShowPassword] = useState(props.secureTextEntry);
@@ -58,12 +58,12 @@ const CustomInput = ({ containerStyle, placeholder, onChangeText, error, ...prop
 
     return (
         <View style={containerStyle}>
-            <View style={[styles.innerContainer, error && { borderColor: 'red' }]}>
+            <View style={[styles.innerContainer, error && { borderColor: 'red' },  {borderColor: color}]}>
                 <Animated.Text style={[styles.label, labelStyle]}>{placeholder}</Animated.Text>
                 <View style={styles.inputContainer}>
                     <TextInput
                         {...props}
-                        style={styles.input}
+                        style={[styles.input, {color: color},]}
                         onFocus={handleFocus}
                         onBlur={handleBlur}
                         onChangeText={handleTextChange}
@@ -95,15 +95,14 @@ const CustomInput = ({ containerStyle, placeholder, onChangeText, error, ...prop
 
 const styles = StyleSheet.create({
     innerContainer: {
-        borderWidth: 1,
-        borderColor: '#000000',
+        borderWidth: 4,
         borderRadius: 5,
         height: 60,
         justifyContent: 'center',
     },
     label: {
         position: 'absolute',
-        color: 'gray',
+        color: '#fff',
     },
     inputContainer: {
         flexDirection: 'row',
@@ -112,7 +111,7 @@ const styles = StyleSheet.create({
     },
     input: {
         flex: 1,
-        fontSize: 16,
+        fontSize: 18,
         height: 50,
         marginTop: 10,
         paddingLeft: 10,

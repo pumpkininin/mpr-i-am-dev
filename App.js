@@ -12,7 +12,7 @@ SplashScreen.preventAutoHideAsync();
 
 export default function App() {
     const [fontsLoaded, fontError] = useFonts({
-        'cyber-display': require('./assets/fonts/CyberDisplay-VGvGx.ttf'),
+        'cyber-display': require('./assets/fonts/KnightWarrior-w16n8.otf'),
 
     });
     const onLayoutRootView = useCallback(async () => {

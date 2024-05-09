@@ -7,6 +7,7 @@ import CustomInput from "../components/UI/CustomInput";
 import {CharacterContext} from "../store/character-context";
 import Character from "../model/Character";
 import RectangleButton from "../components/UI/RectangleButton";
+import {GlobalStyles} from "../constants/Color";
 
 const gender = [
     { label: 'Male', value: 'male' },
@@ -46,13 +47,14 @@ export default function CreateCharacter({navigation}) {
     }
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, {backgroundColor: "#03A9F4"}]}>
             <CustomInput
                 style={styles.charNameInput}
                 containerStyle={{ marginHorizontal: 20 }}
                 placeholder={'Character name'}
                 onChangeText={setCharName}
                 error={charNameError}
+                color={GlobalStyles.colors.primary100}
             />
             <Dropdown data={gender}
                       style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}

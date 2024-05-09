@@ -1,9 +1,10 @@
 import { useContext, useState } from "react";
-import {FlatList, Text, View, StyleSheet, TouchableOpacity, Platform} from "react-native";
+import {FlatList, Text, View, StyleSheet, TouchableOpacity, Platform, ImageBackground} from "react-native";
 import { CharacterContext } from "../store/character-context";
 import {Ionicons} from "@expo/vector-icons";
 import RectangleButton from "../components/UI/RectangleButton";
 
+const image = {uri: "https://xclcamps.com/wp-content/uploads/coding-difference-1.jpg"}
 
 export default function Lobby({ navigation }) {
 
@@ -16,6 +17,7 @@ export default function Lobby({ navigation }) {
     }
     return (
         <View style={styles.container}>
+
             <View style={styles.availableList}>
                 <Text style={[{marginBottom: 20, fontSize: 24, fontFamily: "cyber-display", textAlign: "center"}]}>{"Play existing character"}</Text>
                 <FlatList
@@ -32,7 +34,8 @@ export default function Lobby({ navigation }) {
                 <Text style={{marginTop: 20, fontSize: 24,fontFamily: "cyber-display",}}>{"Or create new character"}</Text>
                 <RectangleButton text={"New Character"} color={"success"} onPress={() => navigation.navigate('CreateCharacter')} />
             </View>
-         </View>
+
+        </View>
     )
 }
 
@@ -77,7 +80,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         verticalAlign: "middle",
-        marginVertical: 20
+        marginVertical: 20,
+        backgroundColor: "#00BCD4"
     },
     availableList: {
         flex: 8
@@ -111,5 +115,8 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         fontFamily: "cyber-display",
     },
-
+    image: {
+        flex: 1,
+        justifyContent: 'center',
+    },
 })

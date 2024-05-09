@@ -42,10 +42,12 @@ export default function Home({navigation}) {
         setAge(charCtx.playingCharacter.age);
     }, [charCtx.playingCharacter.age]);
 
-    useEffect(() => {
+    useEffect( () => {
+        async function getProgress() {
+            await setProgress(charCtx.progress)
+        }
         // Calculate progress based on age
-        console.log(charCtx.progress)
-        setProgress(charCtx.progress);
+        getProgress()
     }, [charCtx.progress]);
 
     useEffect(() => {
